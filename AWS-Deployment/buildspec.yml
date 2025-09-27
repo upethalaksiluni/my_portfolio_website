@@ -1,0 +1,35 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      php: 8.1
+      nodejs: 18
+    commands:
+      - echo Installing dependencies...
+      - curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+  pre_build:
+    commands:
+      - echo Pre-build phase started on `date`
+      - cp .env.example .env
+      - composer install --no-interaction --optimize-autoloader --no-dev
+      - npm install
+
+  build:
+    commands:
+      - echo Build started on `date`
+      - npm run build
+      - php artisan key:generate
+      - php artisan config:cache
+      - php artisan route:cache
+      - php artisan view:cache
+
+  post_build:
+    commands:
+      - echo Build completed on `date`
+
+artifacts:
+  files:
+    - '**/*'
+  base-directory: '.'
