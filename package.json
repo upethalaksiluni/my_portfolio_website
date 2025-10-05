@@ -22,6 +22,7 @@
     "dependencies": {
         "@heroicons/vue": "^2.0.0",
         "aos": "^2.3.4",
-        "vue-router": "^4.0.0"
+        "vue-router": "^4.0.0",
+        "ziggy-js": "^2.6.0"
     }
 }
